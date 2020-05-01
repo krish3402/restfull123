@@ -1,0 +1,65 @@
+version: '3.7'
+
+# Define services
+services:
+  # App backend service
+  app-server:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: meeting-server # Use an image built from the specified dockerfile in the `polling-app-server` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    restart: always
+    depends_on:
+      - db # This service depends on mysql. Start that first.
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/db_meeting?useUnicode=true&amp;characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+      - frontend
+
+  # Frontend Service
+  app-client:
+    build:
+      context: meeting-client # Use an image built from the specified dockerfile in the `polling-app-client` directory.
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: http://127.0.0.1:80/api
+    ports:
+      - "80:80" # Map the exposed port 80 on the container to port 9090 on the host machine
+    restart: always
+    depends_on:
+      - app-server
+    networks:
+      - frontend
+  # Database Service (Mysql)
+  db:
+    image: mysql:5.7
+    # build:
+    # context: mysql # Use an image built from the specified dockerfile in the `polling-app-client` directory.
+    # dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: db_meeting
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password   
+    volumes:
+         - /var/lib/mysql:/var/lib/mysql
+     
+    networks:
+      - backend
+
+# Volumes
+volumes:
+  db_meeting:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+  frontend:
