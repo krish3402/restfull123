@@ -11,10 +11,10 @@ WORKDIR /jar
 EXPOSE 8080
 
 # The application's jar file
-ARG JAR_FILE=meeting-server/target/meeting-0.0.1-SNAPSHOT.jar
+#ARG JAR_FILE=meeting-server/target/meeting-0.0.1-SNAPSHOT.jar
 
 # Add the application's jar to the container
-ADD ${JAR_FILE} meeting-0.0.1-SNAPSHOT.jar
+ADD meeting-server/target/meeting-0.0.1-SNAPSHOT.jar meeting-0.0.1-SNAPSHOT.jar
 
 # Run the jar file
 ENTRYPOINT ["java","-jar","meeting-0.0.1-SNAPSHOT.jar"]
