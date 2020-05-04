@@ -13,8 +13,7 @@ services:
     restart: always
     depends_on:
       - db # This service depends on mysql. Start that first.
-     depends_on:
-      - app-client
+     
     environment: # Pass environment variables to the service
       SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/db_meeting?useUnicode=true&amp;characterEncoding=UTF-8
       SPRING_DATASOURCE_USERNAME: root
@@ -35,8 +34,7 @@ services:
     restart: always
     depends_on:
       - app-server
-    depends_on:
-      - db
+    
     networks:
       - frontend
   # Database Service (Mysql)
