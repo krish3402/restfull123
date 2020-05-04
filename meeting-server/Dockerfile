@@ -17,4 +17,4 @@ ARG JAR_FILE=meeting-server/target/meeting-0.0.1-SNAPSHOT.jar
 ADD ${JAR_FILE} meeting-0.0.1-SNAPSHOT.jar
 
 # Run the jar file
-ENTRYPOINT ["java","-jar","/meeting-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","meeting-0.0.1-SNAPSHOT.jar"]
