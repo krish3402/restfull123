@@ -14,7 +14,7 @@ EXPOSE 8080
 #ARG JAR_FILE=meeting-server/target/meeting-0.0.1-SNAPSHOT.jar
 
 # Add the application's jar to the container
-ADD meeting-server/target/meeting-0.0.1-SNAPSHOT.jar meeting-0.0.1-SNAPSHOT.jar
+ADD target/meeting-0.0.1-SNAPSHOT.jar meeting-0.0.1-SNAPSHOT.jar
 
 # Run the jar file
 ENTRYPOINT ["java","-jar","meeting-0.0.1-SNAPSHOT.jar"]
