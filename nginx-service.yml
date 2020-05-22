@@ -5,8 +5,8 @@ metadata:
   labels:
     run: my-nginx
 spec:
-  loadBalancerIP: 3.212.214.48
-  type: LoadBalancer  
+  type: LoadBalancer
+  loadBalancerIP: 3.212.214.48    
   ports:
   - port: 80
     targetPort: 9376
